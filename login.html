@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .cf-turnstile {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login</h2>
+        
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <input type="email" id="email" placeholder="Email Address" required value="nasir4u@gmail.com">
+            <input type="password" id="password" placeholder="Password" required value="nasir4u">
+            
+            <!-- Cloudflare Turnstile with your Site Key -->
+            <div class="cf-turnstile" 
+                 data-sitekey="0x4AAAAAADFlEfBeM1Cm16qN" 
+                 data-theme="light"
+                 data-size="normal"></div>
+            
+            <button type="submit">Login</button>
+        </form>
+        
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const messageDiv = document.getElementById('message');
+
+            // Clear previous message
+            messageDiv.textContent = '';
+
+            // Check credentials
+            if (email === "nasir4u@gmail.com" && password === "nasir4u") {
+                messageDiv.style.color = "green";
+                messageDiv.textContent = "✅ Login Successful! (Demo)";
+                
+                // Optional: Redirect after successful login
+                // setTimeout(() => { window.location.href = "index.html"; }, 1500);
+            } else {
+                messageDiv.style.color = "red";
+                messageDiv.textContent = "❌ Invalid email or password";
+            }
+        }
+    </script>
+</body>
+</html>

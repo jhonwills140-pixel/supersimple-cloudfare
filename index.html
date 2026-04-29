@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - My Website</title>
+    
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.25);
+            padding: 50px;
+            border-radius: 15px;
+        }
+        h1 { 
+            font-size: 2.8em; 
+            margin-bottom: 20px; 
+        }
+        p {
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        .turnstile-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 35px;
+            background: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        a:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Website</h1>
+        <p>This website is protected by Cloudflare Security.</p>
+        
+        <!-- Cloudflare Turnstile Widget -->
+        <div class="turnstile-container">
+            <div class="cf-turnstile" 
+                 data-sitekey="0x4AAAAAADFlEfBeM1Cm16qN" 
+                 data-theme="light"
+                 data-size="normal"></div>
+        </div>
+
+        <p><strong>Your Turnstile Site Key (0x4AAAAAADFlEfBeM1Cm16qN) has been successfully added.</strong></p>
+        
+        <a href="login.html">Go to Login Page</a>
+    </div>
+</body>
+</html>

@@ -54,6 +54,10 @@
     button:hover { 
       background: #1e3a8a; 
     }
+    button:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
     .g-recaptcha {
       margin: 15px 0;
       display: flex;
@@ -68,26 +72,25 @@
     <form id="loginForm">
       <input type="email" id="email" placeholder="Email Address" required>
       <input type="password" id="password" placeholder="Password" required>
-      
+     
       <!-- Google reCAPTCHA -->
       <div class="g-recaptcha" 
            data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
            data-callback="onRecaptchaSuccess">
       </div>
-     
+    
       <button type="submit" id="loginBtn" disabled>Login</button>
     </form>
   </div>
 
   <script>
-    let recaptchaToken = "6LeX39EsAAAAAMdEMlVryDeoYps9bSXCPN8LXt_T
-";
+    let recaptchaToken = "";
 
-    // Callback when reCAPTCHA is solved
+    // Callback when user solves reCAPTCHA
     window.onRecaptchaSuccess = function(token) {
       recaptchaToken = token;
       document.getElementById('loginBtn').disabled = false;
-      console.log("✅ reCAPTCHA Verified");
+      console.log("✅ reCAPTCHA Solved Successfully");
     };
 
     // Multiple Users
@@ -104,11 +107,11 @@
       const password = document.getElementById('password').value.trim();
 
       if (!recaptchaToken) {
-        alert("Please complete the reCAPTCHA verification");
+        alert("Please complete the reCAPTCHA verification first!");
         return;
       }
 
-      // === Data for Burp Suite (POST Request) ===
+      // ============== POST DATA FOR BURP SUITE ==============
       const postData = {
         email: email,
         password: password,
@@ -117,7 +120,7 @@
         user_agent: navigator.userAgent
       };
 
-      console.log("🚀 POST Request Data for Burp Suite:");
+      console.log("🚀 POST Request Data (Capture in Burp Suite):");
       console.table(postData);
 
       // Check Credentials
@@ -142,9 +145,11 @@
         errorDiv.style.boxShadow = '0 10px 40px rgba(0,0,0,0.4)';
         errorDiv.style.zIndex = '10000';
         errorDiv.innerHTML = `Aby Saaly!<br><br>Wrong Email or Password!`;
+        
         document.body.appendChild(errorDiv);
         setTimeout(() => errorDiv.remove(), 4000);
 
+        // Clear fields
         document.getElementById('email').value = "";
         document.getElementById('password').value = "";
       }
